@@ -65,7 +65,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   // Map display names to Firestore document IDs
   final Map<String, String> _userMap = {
-    'Mrs Castle 🏰': 'mrs_castle',
+    'Mrs. Castle 🏰': 'mrs_castle',
     'Juanjo 🔥': 'juanjo',
   };
   String?
@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _selectedDisplayName =
-        'Mrs Castle 🏰'; // Initialize with the first user option
+        'Mrs. Castle 🏰'; // Initialize with the first user option
     _fetchWinner(); // Fetch winner when the page initializes
   }
 
@@ -155,6 +155,15 @@ class _HomePageState extends State<HomePage> {
                 fontSize: 48,
                 fontWeight: FontWeight.bold,
                 color: Colors.grey[900],
+              ),
+            ),
+            Text(
+              '(book edition)',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.montserrat(
+                fontSize: 24,
+                fontWeight: FontWeight.normal,
+                color: Colors.grey[600],
               ),
             ),
             const SizedBox(height: 20),
@@ -621,7 +630,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Ya has registrado una sesión de gimnasio hoy.'),
+              content: Text('Ya has registrado una sesión de lectura hoy.'),
               backgroundColor: Colors.orange,
               behavior: SnackBarBehavior.floating,
               shape: RoundedRectangleBorder(
@@ -678,11 +687,11 @@ class _UserDetailPageState extends State<UserDetailPage> {
         );
       }
     } catch (e) {
-      print("Error adding gym session: $e");
+      print("Error adding reading session: $e");
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Error al agregar la sesión de gimnasio.'),
+            content: Text('Error al agregar la sesión de lectura.'),
             backgroundColor: Colors.red,
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(
@@ -699,9 +708,9 @@ class _UserDetailPageState extends State<UserDetailPage> {
   @override
   Widget build(BuildContext context) {
     // Define the deadline date (August 15th, 2025)
-    final DateTime deadlineDate = _normalizeDate(DateTime(2025, 8, 15));
+    final DateTime deadlineDate = _normalizeDate(DateTime(2025, 12, 20));
 
-    final DateTime startDate = _normalizeDate(DateTime(2025, 7, 7));
+    final DateTime startDate = _normalizeDate(DateTime(2025, 9, 25));
 
     // final DateTime yesterday = _normalizeDate(
     //   DateTime.now().subtract(const Duration(days: 1)),
@@ -717,7 +726,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
     }
 
     // Determine the ideal fixed width for the calendar
-    const double bubbleSize = 25.0;
+    const double bubbleSize = 22.0;
     const double spacing = 2.0;
     const int crossAxisCount = 7;
     const double calendarFixedWidth =
@@ -725,23 +734,11 @@ class _UserDetailPageState extends State<UserDetailPage> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(title: const Text('Tracker de Actividades')),
+      appBar: AppBar(title: Text(widget.displayName)),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Text(
-              'Hey, ${widget.displayName}! 👋',
-              style: GoogleFonts.montserrat(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[800],
-              ),
-            ),
-          ),
-          const SizedBox(height: 32),
+          const SizedBox(height: 16),
           // const Spacer(), // Pushes the following content to the center/bottom
           // Centered section starts here
           Align(
@@ -757,7 +754,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
                     color: Theme.of(context).primaryColor,
                   ),
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: 16),
                 // Row for the buttons
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -765,7 +762,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
                     ElevatedButton.icon(
                       onPressed: _addGymSession,
                       icon: const Icon(Icons.add_circle_outline),
-                      label: const Text('Agregar Sesión de Gym'),
+                      label: const Text('Agregar Sesión de Lectura'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFCC3300),
                         foregroundColor: Colors.white,
@@ -799,7 +796,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 40), // Space before streak info
+                const SizedBox(height: 16), // Space before streak info
                 Text(
                   'Racha Actual: $_currentStreak días 🔥',
                   style: GoogleFonts.montserrat(
@@ -815,7 +812,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
                     color: Colors.grey[700],
                   ),
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: 16),
                 // Monthly Streak Viewer (fixed size compact calendar)
                 Container(
                   width: calendarFixedWidth + 20,
@@ -835,7 +832,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
                   child: Column(
                     children: [
                       Text(
-                        'Progreso hasta el 15 de Agosto',
+                        'Progreso hasta el 20 de diciembre',
                         style: GoogleFonts.montserrat(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
